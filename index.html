@@ -2,77 +2,93 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <title>Simulador de procesos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <meta charset="utf-8" />
+  <title>Simulador de procesos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
 
 </head>
 
 <body>
 
-    <div class="container bg-light">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="display-4">Simulador arq 2</h1>
-                <h3 class="display-6">Carga proceso</h3>
-            </div>
-        </div>
-        <form method="POST" action="" id="procesar">
+  <div class="container bg-light">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="display-4">Simulador arq 2</h1>
+        <h3 class="display-6">Carga proceso</h3>
+      </div>
+    </div>
+    
 
-            <div class="form-group">
-                <input type="text" class="form-control" id="nombre_proceso" name="nombre_proceso" placeholder="Nombre del proceso">
-                <input type="number" class="form-control" name="entrada_proceso" id="entrada_proceso" placeholder="Tiempo de entrada del proceso"
-                    min="0">
-            </div>
-
-
-            <button class="add_field btn btn-secondary m-3">Agregar ráfaga</button>
-            <div class="col">
-                <input class="form-control mb-3 rafaga" min="1" type="number" name="longitud_rafaga[]" placeholder="Longitud de ráfaga inicial">
-            </div>
-            <div class="rafagas">
-
-                <!-- ACÁ VAN LAS RÁFAGAS QUE SE CARGAN CON JQUERY -->
-            </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="nombre_proceso" name="nombre_proceso" placeholder="Nombre del proceso">
+        <input type="number" class="form-control" name="entrada_proceso" id="entrada_proceso" placeholder="Tiempo de entrada del proceso" min="0" value="0">
+      </div>
 
 
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="politica_procesador">Política de administración de procesador</label>
-                        <select class="form-control" id="politica_procesador" name="politica_procesador">
+      <button class="add_field btn btn-secondary m-3">Agregar ráfaga</button>
+      <div class="col">
+        <input class="form-control mb-3 rafaga" min="1" value="1" type="number" name="longitud_rafaga[]" placeholder="Longitud de ráfaga inicial">
+      </div>
+      <div class="rafagas">
+
+        <!-- ACÁ VAN LAS RÁFAGAS QUE SE CARGAN CON JQUERY -->
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="politica_procesador">Política de administración de procesador</label>
+            <select class="form-control" id="politica_procesador" name="politica_procesador">
                             <option value="fifo">FIFO</option>
                             <option value="sjfd">Short Job First (con desalojo)</option>
                             <option value="sjf">Short Job First</option>
                             <option value="roundrobin">Round Robin</option>
                         </select>
-                    </div>
-                </div>
-            </div>
-            <button type="button" class="m-3 btn btn-primary btn-lg" id="agregar_proceso">Agregar proceso</button>
-
-        </form>
-        <div class="row" id="cargados">
-            <!-- Acá van los procesos ya cargados (con jquery) -->
+          </div>
         </div>
+      </div>
+      <button type="button" class="m-3 btn btn-primary btn-lg" id="agregar_proceso">Agregar proceso</button>
 
-
-        <div class="row">
-            <div class="col-12">
-                <form action="" method="post">
-                    <button type="submit" class="btn btn-primary btn-block btn-lg" disabled>Procesar</button>
-                </form>
-
-            </div>
-        </div>
-        <!-- container -->
+    <div class="row" id="cargados">
+      <!-- Acá van los procesos ya cargados (con jquery) -->
     </div>
 
 
-    <script src="static/js/bootstrap.min.js"></script>
-    <script src="static/js/jquery-3.3.1.min.js"></script>
-    <script src="static/js/script.js"></script>
+    <div class="row">
+      <div class="col-12">
+          <button id="procesar" class="m-3 btn btn-primary btn-block btn-lg">Procesar</button>
+      </div>
+    </div>
+
+     <div class="row">
+      <div class="col">
+      <table class="table">
+        <thead class="thead-light">
+          <th>Tiempo</th>
+          <th>Proceso</th>
+          <th>Estado</th>
+          <th>Sistema Operativo</th>
+        </thead>
+        <tbody id="grafico">
+            
+        </tbody>
+      </table>
+       
+      </div>
+     </div>
+    <!-- container -->
+  </div>
+ 
+
+
+  <script src="static/js/bootstrap.min.js"></script>
+  <script src="static/js/jquery-3.3.1.min.js"></script>
+  <script src="static/js/script.js"></script>
+  <script src="static/js/fifo.js"></script>
+  <script src="static/js/roundrobin.js"></script>
+
 </body>
 
 </html>
