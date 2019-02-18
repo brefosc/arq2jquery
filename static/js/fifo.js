@@ -1,12 +1,3 @@
-class Proceso {
-    constructor(nombre, entrada, rafagas) {
-        this.nombre = nombre;
-        this.entrada = entrada;
-        this.rafagas = rafagas;
-        this.estado = 'No inicializado';
-    }
-}
-
 var grafico = [];
 var procesos = [];
 
@@ -66,7 +57,7 @@ function ejecutarListo(proceso) {
                 grafico.push({
                     proceso: proceso,
                     estado: proceso.estado,
-                    os: "ejecutando rafaga actual " + rafagaActual + " de " + proceso.nombre
+                    os: "ejecutando rafaga actual de " + rafagaActual + " de " + proceso.nombre
                 });
                 console.log("ejecutando rafaga " + i + " de" + rafagaActual + " de " + proceso.nombre);
                 proceso.estado = 'Ejecutando';
@@ -104,47 +95,55 @@ function ejecutarListo(proceso) {
 
 
 function inicializarProcesos(proceso) {
-    var pActual = proceso;
-    if (pActual.estado != 'Terminado') {
+   
+    if (proceso.estado != 'Terminado' && proceso.entrada >= tiempo) {
 
-		console.log('Inicializando p actual: ' + pActual.nombre + ' estado: ' + pActual.estado);
+		console.log('Inicializando p actual: ' + proceso.nombre + ' estado: ' + proceso.estado);
 
-        if (pActual.estado == 'Bloqueado') {
-            if (pActual.entrada <= tiempo) {
-                console.log("proceso a pasar a listos: " + pActual.nombre)
+        if (proceso.estado == 'Bloqueado') {
+            if (proceso.entrada <= tiempo) {
+                console.log("proceso a pasar a listos: " + proceso.nombre)
 
                 grafico.push({
                     proceso: proceso,
                     estado: proceso.estado,
-                    os: "Pasando " + pActual.nombre + " a listos"
+                    os: "Pasando " + proceso.nombre + " a listos"
                 });
 
-                pActual.estado = 'Listo'
+                proceso.estado = 'Listo'
+                tiempo++;
 
             }
             else
             {
-                 console.log("Proceso " + pActual.nombre + " esperando para entrar");
+                 console.log("Proceso " + proceso.nombre + " esperando para entrar");
                 grafico.push({
                     proceso: proceso,
                     estado: proceso.estado,
-                    os: "Proceso " + pActual.nombre + " esperando para entrar"
+                    os: "Proceso " + proceso.nombre + " esperando para entrar"
                 });
             }
             tiempo++;
-        } else if (pActual.estado == 'No inicializado') {
-					console.log('Inicializando proceso en bloqueados + ' + pActual.nombre)
+        } else if (proceso.estado == 'No inicializado') {
+					console.log('Inicializando proceso en bloqueados + ' + proceso.nombre)
             grafico.push({
-                proceso: proceso,
+                proceso: proceso.nombre,
                 estado: proceso.estado,
-                os: "Pasando " + pActual.nombre + " a bloqueados"
+                os: "Pasando " + proceso.nombre + " a bloqueados"
             });
-            pActual.estado = 'Bloqueado'
+            proceso.estado = 'Bloqueado'
+            tiempo++;
+            
         }
     }
 	else
 		{
-			console.log('proceso terminado no se inicializa')
+			console.log('proceso terminado no se inicializa');
+			grafico.push({
+                proceso: proceso.nombre,
+                estado: proceso.estado,
+                os: "Proceso terminado o temprano"
+            });
 		}
 
 } //func

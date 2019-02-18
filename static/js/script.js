@@ -1,3 +1,12 @@
+class Proceso {
+    constructor(nombre, entrada, rafagas) {
+        this.nombre = nombre;
+        this.entrada = entrada;
+        this.rafagas = rafagas;
+        this.estado = 'No inicializado';
+    }
+}
+
 $(document).ready(function() {
 
   var procesos = [];
@@ -49,9 +58,10 @@ $(document).ready(function() {
 
       if (procesos.length != 0)
       {
+		  $("#tableGrafico > tr").remove();
         if (document.getElementById("politica_procesador").selectedIndex == 0)
            {
-              alert("running fifo");
+              //alert("running fifo");
                runFifo(procesos);
             }
           else if (document.getElementById("politica_procesador").selectedIndex == 3)
